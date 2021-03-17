@@ -104,11 +104,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="rocket.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="c-users-anhar-ali-appdata-local-microsoft-windows-1.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
