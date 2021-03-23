@@ -10,6 +10,11 @@ namespace SemPrace
     {
         public double X { get; set; }
         public double Y { get; set; }
+        public double ScreenWidth { get; set; }
+        public double ScreenHeight { get; set; }
+        public int Speed { get; set; }
+        public double Size { get;  set; }
+        public double Angle { get; set; }
 
     }
 }
