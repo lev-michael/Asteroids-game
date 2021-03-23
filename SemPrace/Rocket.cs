@@ -13,20 +13,27 @@ namespace SemPrace
         public PointF[] points;
         public int Speed { get; set; }
         public double Angle { get; set; }
-        public int Size { get; set; }
+        public int Size { get; private set; }
+
+        public double Width { get; set; }
+        public double Height { get; private set; }
+
+
 
         public Rocket()
         {
             evaluatePoints();
         }
 
-        public Rocket(int x, int y)
+        public Rocket(int x, int y, double screenWidth, double screenHeight, int speed, int size)
         {
             this.X = x;
             this.Y = y;
-            Size = 30;
+            Size = size;
             Angle = Math.PI/2;
-            Speed = 10;
+            Speed = speed;
+            this.Height = screenHeight;
+            this.Width = screenWidth;
             evaluatePoints();
 
         }
@@ -61,15 +68,31 @@ namespace SemPrace
         {
             switch (direction)
             {
-                case Direction.DOWN:
-                    break;
                 case Direction.UP:
+                    
                     double directionX = Math.Cos(Angle);
                     double directionY = Math.Sin(Angle);
                     double velocityX = directionX * Speed;
                     double velocityY = directionY * Speed;
                     X -= velocityX;
                     Y -= velocityY;
+                    if (Y - Size < 0)
+                    {
+                        Y += velocityY;
+                    }
+                    if (X - Size < 0)
+                    {
+                        X += velocityX;
+                    }
+                    if(Y + Size > Height)
+                    {
+                        Y += velocityY;
+                    }
+                    if (X + Size > Width)
+                    {
+                        X += velocityX;
+                    }
+
                     break;
             }
             evaluatePoints();

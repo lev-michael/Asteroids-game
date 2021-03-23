@@ -13,8 +13,7 @@ namespace SemPrace
     public partial class GameForm : Form
     {
         Random random = new Random();
-        Rocket rocket = new Rocket(100,100);
-
+        Rocket rocket;
 
         public GameForm()
         {
@@ -24,9 +23,9 @@ namespace SemPrace
 
         private void StartGame()
         {
-            rocket.X = 100;
-            rocket.Y = 100;
+            this.rocket = new Rocket(100, 100, this.gameScreen.Width, this.gameScreen.Height, 10, 30);
             timer.Tick += UpdateScreen;
+            
 
         }
 
@@ -43,13 +42,11 @@ namespace SemPrace
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
+
             switch (e.KeyCode)
             {
                 case Keys.Up:
                     rocket.MoveRocket(Direction.UP);
-                    break;
-                case Keys.Down:
-                    rocket.MoveRocket(Direction.DOWN);
                     break;
                 case Keys.Left:
                     rocket.Rotate(-5, Direction.LEFT);

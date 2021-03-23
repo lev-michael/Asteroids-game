@@ -49,8 +49,6 @@
             this.gameScreen.TabIndex = 0;
             this.gameScreen.TabStop = false;
             this.gameScreen.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreenPait);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
-
             // 
             // GameForm
             // 
@@ -61,6 +59,7 @@
             this.Controls.Add(this.gameScreen);
             this.Name = "GameForm";
             this.Text = "GameForm";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.gameScreen)).EndInit();
             this.ResumeLayout(false);
 
