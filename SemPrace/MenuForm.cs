@@ -12,8 +12,11 @@ namespace SemPrace
 {
     public partial class MenuForm : Form
     {
+        public static MenuForm CurrentForm;
+
         public MenuForm()
         {
+            CurrentForm = this;
             InitializeComponent();
         }
 
@@ -37,12 +40,17 @@ namespace SemPrace
 
         private void HighScoreButton_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            HighScoreForm form = new HighScoreForm();
+            form.ShowDialog();
+            this.Show();
         }
 
         private void AboutButton_Click(object sender, EventArgs e)
         {
-
+            AboutForm form = new AboutForm();
+            form.Show();
+            this.Hide();
         }
     }
 }

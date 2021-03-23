@@ -7,19 +7,37 @@ using System.Threading.Tasks;
 namespace SemPrace
 {
     enum AsteroidSize { BIG = 50, MEDIUM = 25, SMALL = 12 }
-    enum AsteroidSpeed { FAST = 10, MEDIUM = 7, SLOW = 3 }
+    enum AsteroidSpeed { FAST = 3, MEDIUM = 2, SLOW = 1 }
    
 
     class Asteroid : Shape
     {
         private Random random;
+
+        public Asteroid(AsteroidSize size, double screenWidth, double screenHeight, double angle, double x, double y)
+        {
+            setSizeAndSpeedOfAsteroid(size);
+            ScreenWidth = screenWidth;
+            ScreenHeight = screenHeight;
+            Angle = angle;
+            X = x;
+            Y = y;
+        }
         public Asteroid(AsteroidSize size, double screenWidth, double screenHeight)
         {
             random = new Random();
+            setSizeAndSpeedOfAsteroid(size);
+            ScreenWidth = screenWidth;
+            ScreenHeight = screenHeight;
+            generetaRandomCoordinates();
+        }
+
+        private void setSizeAndSpeedOfAsteroid(AsteroidSize size)
+        {
             switch (size)
             {
                 case AsteroidSize.BIG:
-                    Size = (int) AsteroidSize.BIG;
+                    Size = (int)AsteroidSize.BIG;
                     Speed = (int)AsteroidSpeed.SLOW;
                     break;
                 case AsteroidSize.MEDIUM:
@@ -31,9 +49,6 @@ namespace SemPrace
                     Speed = (int)AsteroidSpeed.FAST;
                     break;
             }
-            ScreenWidth = screenWidth;
-            ScreenHeight = screenHeight;
-            generetaRandomCoordinates();
         }
 
         private void generetaRandomCoordinates()
@@ -67,10 +82,7 @@ namespace SemPrace
                     X = random.Next(10, (int)ScreenWidth-10);
                     Angle = random.NextDouble() * (Math.PI) + Math.PI;
                 }
-
-
             }
-            //Angle = random.NextDouble()*2*Math.PI;
         }
 
         public bool MoveAsteroid()
