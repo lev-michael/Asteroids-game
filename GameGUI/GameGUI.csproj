@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{434D6875-660F-48E1-87FB-E25F7585D1CF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SemPrace</RootNamespace>
-    <AssemblyName>SemPrace</AssemblyName>
+    <RootNamespace>GameGUI</RootNamespace>
+    <AssemblyName>GameGUI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

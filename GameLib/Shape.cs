@@ -10,7 +10,6 @@ namespace GameLib
     {
         public const double HALF_OF_PI = Math.PI/2;
         public const double TWO_THIRDS_OF_PI = (2 * Math.PI) / 3;
-
         public double X { get; set; }
         public double Y { get; set; }
         public double ScreenWidth { get; set; }

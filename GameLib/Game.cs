@@ -4,15 +4,12 @@ using System.Drawing;
 
 
 namespace GameLib
-{
-    public enum GameStatusEnum { STARTED, PAUSED, ENDED }
-    public class Game
+{   public class Game
     {
         private Random rand;
         public double ScreenWidth { get; set; }
         public double ScreenHeight { get; set; }
         public int Score { get; private set; }
-        private GameStatusEnum GameStatus { get; set; }
 
         public Rocket Rocket { get; private set; }
         private List<Shot> Shots;
@@ -25,14 +22,12 @@ namespace GameLib
             ScreenWidth = width;
             Asteroids = new List<Asteroid>();
             Shots = new List<Shot>();
-            GameStatus = GameStatusEnum.ENDED;
         }
 
         public void StartGame()
         {
             Score = 0;
-            GameStatus = GameStatusEnum.STARTED;
-            this.Rocket = new Rocket(ScreenWidth / 2, ScreenHeight / 2, ScreenWidth, ScreenHeight, 10, 30);
+            this.Rocket = new Rocket(ScreenWidth, ScreenHeight);
         }
 
         public void detectShotCollision()
@@ -159,16 +154,8 @@ namespace GameLib
         {
             Rocket.Rotate(direction);
         }
-
-        public void PauseGame()
-        {
-            GameStatus = GameStatusEnum.PAUSED;
-        }
-
         public void EndGame()
         {
-            GameStatus = GameStatusEnum.ENDED;
-            Rocket = null;
             Asteroids.Clear();
             Shots.Clear();
         }

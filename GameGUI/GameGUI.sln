@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemPrace", "SemPrace.csproj", "{434D6875-660F-48E1-87FB-E25F7585D1CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGUI", "GameGUI.csproj", "{434D6875-660F-48E1-87FB-E25F7585D1CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLib", "..\GameLib\GameLib.csproj", "{470A7146-00AB-4D52-B409-309527E80806}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameLib", "..\GameLib\GameLib.csproj", "{470A7146-00AB-4D52-B409-309527E80806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

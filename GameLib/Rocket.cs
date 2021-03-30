@@ -12,8 +12,8 @@ namespace GameLib
     public class Rocket : Shape
     {
         public const int ROCKET_TURN_ANGLE = 5;
-        public const int ROCKET_SPEED = 5;
-        public const int ROCKET_SIZE = 5;
+        public const int ROCKET_SPEED = 10;
+        public const int ROCKET_SIZE = 30;
 
         public PointF[] points { get; private set; }
         public int Speed { get; set; }
