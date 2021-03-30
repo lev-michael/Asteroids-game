@@ -52,7 +52,6 @@
             this.gameScreen.TabIndex = 0;
             this.gameScreen.TabStop = false;
             this.gameScreen.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreenPaint);
-            this.gameScreen.Resize += new System.EventHandler(this.GameScreenResized);
             // 
             // scoreLabel
             // 
@@ -69,7 +68,6 @@
             // 
             this.asteroidTimer.Enabled = true;
             this.asteroidTimer.Interval = 3000;
-            this.asteroidTimer.Tick += new System.EventHandler(this.generateAsteroid);
             // 
             // GamePausedLabel
             // 

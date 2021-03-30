@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemPrace
+namespace GameLib
 {
-    enum AsteroidSize { BIG = 50, MEDIUM = 25, SMALL = 12 }
-    enum AsteroidSpeed { FAST = 3, MEDIUM = 2, SLOW = 1 }
+    public enum AsteroidSize { BIG = 50, MEDIUM = 25, SMALL = 12 }
+    public enum AsteroidSpeed { FAST = 3, MEDIUM = 2, SLOW = 1 }
    
 
-    class Asteroid : Shape
+    public class Asteroid : Shape
     {
         private Random random;
+
+        public int Speed { get; set; }
 
         public Asteroid(AsteroidSize size, double screenWidth, double screenHeight, double angle, double x, double y)
         {
@@ -61,12 +63,12 @@ namespace SemPrace
                 {
                     X = ScreenWidth;
                     Y = random.Next(10, (int)ScreenHeight-10);
-                    Angle = random.NextDouble() * (Math.PI / 2);
+                    Angle = random.NextDouble() * HALF_OF_PI;
                 } else
                 {
                     X = 0;
                     Y = random.Next(10, (int)ScreenHeight-10);
-                    Angle = random.NextDouble() * (Math.PI/2)+((2 * Math.PI)/3);
+                    Angle = random.NextDouble() * HALF_OF_PI+ TWO_THIRDS_OF_PI;
                 }
 
             } else
@@ -75,12 +77,12 @@ namespace SemPrace
                 {
                     Y = ScreenHeight;
                     X = random.Next(10, (int)ScreenWidth-10);
-                    Angle = random.NextDouble() * (Math.PI);
+                    Angle = random.NextDouble() * Math.PI;
                 } else
                 {
                     Y = 0;
                     X = random.Next(10, (int)ScreenWidth-10);
-                    Angle = random.NextDouble() * (Math.PI) + Math.PI;
+                    Angle = random.NextDouble() * Math.PI + Math.PI;
                 }
             }
         }

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemPrace
+namespace GameLib
 {
-    class Shot : Shape
+    public class Shot : Shape
     {
         public double EndX { get; private set; }
         public double EndY { get; private set; }
+        public int Speed { get; set; }
 
         public Shot(double x, double y, double screenWidth, double screenHeight, int speed, double angle)
         {
