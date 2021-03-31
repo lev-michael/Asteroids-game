@@ -1,4 +1,4 @@
-﻿namespace SemPrace
+﻿namespace GameGUI
 {
     partial class GameOverForm
     {
@@ -38,17 +38,18 @@
             // 
             // GameOverLabel
             // 
-            this.GameOverLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.GameOverLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GameOverLabel.AutoSize = true;
             this.GameOverLabel.Font = new System.Drawing.Font("Silkscreen", 82F);
             this.GameOverLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.GameOverLabel.Location = new System.Drawing.Point(99, 86);
             this.GameOverLabel.Name = "GameOverLabel";
-            this.GameOverLabel.Size = new System.Drawing.Size(1078, 145);
+            this.GameOverLabel.Padding = new System.Windows.Forms.Padding(50);
+            this.GameOverLabel.Size = new System.Drawing.Size(1178, 245);
             this.GameOverLabel.TabIndex = 0;
             this.GameOverLabel.Text = "Game Over";
+            this.GameOverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ScoreLabel
             // 
@@ -72,7 +73,7 @@
             this.TooltipLabel.AutoSize = true;
             this.TooltipLabel.Font = new System.Drawing.Font("Silkscreen", 22F);
             this.TooltipLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TooltipLabel.Location = new System.Drawing.Point(290, 467);
+            this.TooltipLabel.Location = new System.Drawing.Point(286, 465);
             this.TooltipLabel.Name = "TooltipLabel";
             this.TooltipLabel.Size = new System.Drawing.Size(729, 39);
             this.TooltipLabel.TabIndex = 2;
@@ -100,10 +101,9 @@
             // 
             // GameOverForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1258, 664);
+            this.ClientSize = new System.Drawing.Size(1301, 664);
             this.Controls.Add(this.TooltipLabel2);
             this.Controls.Add(this.TooltipLabel);
             this.Controls.Add(this.ScoreLabel);

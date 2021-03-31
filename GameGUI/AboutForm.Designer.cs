@@ -1,4 +1,4 @@
-﻿namespace SemPrace
+﻿namespace GameGUI
 {
     partial class AboutForm
     {

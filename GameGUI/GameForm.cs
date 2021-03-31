@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using GameLib;
 
 
-namespace SemPrace
+namespace GameGUI
 {
-
+    enum AnimationSize { SMALL = 64, MEDIUM = 100, BIG = 150 };
     public partial class GameForm : Form
     {
+
         public static GameForm CurrentForm;
         private bool Paused { get; set; }
         private Game Game;
-
+       
 
         public GameForm()
         {
@@ -32,49 +28,53 @@ namespace SemPrace
             Game = new Game(gameScreen.Width, gameScreen.Height);
             Game.StartGame();
             timer.Tick += UpdateScreen;
-            asteroidTimer.Tick +=  AsteroidTimer_Tick;
-       
+            asteroidTimer.Tick += AsteroidTimer_Tick;
         }
+
 
         private void AsteroidTimer_Tick(object sender, EventArgs e)
         {
             Game.GenerateAsteroid();
+            if(asteroidTimer.Interval>900)
+                asteroidTimer.Interval -= 10;
         }
 
         private void UpdateScreen(object sender, EventArgs e)
         {
             gameScreen.Invalidate();
-            Game.detectShotCollision();
+            Asteroid a = Game.detectShotCollision();        
             scoreLabel.Text = $"Score: {Game.Score}";
             if (Game.IsRocketCollisionDetected())
             {
                 EndGame();
             }
+            OnKeyDown();
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown()
         {
-            switch (e.KeyCode)
+            if (Keyboard.IsKeyDown(Key.P))
             {
-                case Keys.Up:
-                    Game.MoveRocket();
-                    break;
-                case Keys.Left:
-                    Game.RotateRocket(Direction.LEFT);
-                    break;
-                case Keys.Right:
-                    Game.RotateRocket(Direction.RIGHT);
-                    break;
-                case Keys.Space:
-                    Game.Shoot();
-                    break;
-                case Keys.Escape:
-                    Game.EndGame();
-                    break;
-                case Keys.P:
-                    Pause();
-                    break;
+                Pause();
+                return;
             }
+
+            if (Keyboard.IsKeyDown(Key.Up))
+                Game.MoveRocket();
+
+
+            if (Keyboard.IsKeyDown(Key.Left))
+            {
+                Game.RotateRocket(Direction.LEFT);
+            }
+            else if (Keyboard.IsKeyDown(Key.Right))
+            {
+                Game.RotateRocket(Direction.RIGHT);
+            }
+
+            if (Keyboard.IsKeyDown(Key.Space))
+                Game.Shoot();
+
         }
 
         private void Pause()
@@ -95,11 +95,12 @@ namespace SemPrace
                 GamePausedHintLabel.Visible = true;
                 GamePausedLabel.Visible = true;
             }
-        } 
+        }
 
 
         private void EndGame()
         {
+            Game.EndGame();
             this.Hide();
             GameOverForm form = new GameOverForm(Game.Score);
             form.Show();

@@ -1,4 +1,4 @@
-﻿namespace SemPrace
+﻿namespace GameGUI
 {
     partial class MenuForm
     {
@@ -19,7 +19,6 @@
             }
             base.Dispose(disposing);
         }
-
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -58,7 +57,8 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(348, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(597, 84);
+            this.label1.Padding = new System.Windows.Forms.Padding(20);
+            this.label1.Size = new System.Drawing.Size(637, 124);
             this.label1.TabIndex = 4;
             this.label1.Text = "Asteroids";
             // 

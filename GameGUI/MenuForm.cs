@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
-namespace SemPrace
+namespace GameGUI
 {
     public partial class MenuForm : Form
     {
@@ -18,6 +12,7 @@ namespace SemPrace
         {
             CurrentForm = this;
             InitializeComponent();
+            Keyboard.IsKeyDown(Key.P);  // Kvůli sjednocení velikostí, při prvním použití Keyboard se restartuje DPI auto scaling
         }
 
         private void Menu_Form_Load(object sender, EventArgs e)

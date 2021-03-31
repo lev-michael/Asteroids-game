@@ -1,4 +1,4 @@
-﻿namespace SemPrace
+﻿namespace GameGUI
 {
     partial class GameForm
     {
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.gameScreen = new System.Windows.Forms.PictureBox();
             this.scoreLabel = new System.Windows.Forms.Label();
@@ -45,6 +46,8 @@
             // 
             // gameScreen
             // 
+            this.gameScreen.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.gameScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gameScreen.BackgroundImage")));
             this.gameScreen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gameScreen.Location = new System.Drawing.Point(0, 0);
             this.gameScreen.Name = "gameScreen";
@@ -95,19 +98,21 @@
             this.GamePausedHintLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.GamePausedHintLabel.Visible = false;
             // 
+            // ExplosionTimer
+            // 
+            // 
             // GameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1258, 664);
-            this.Controls.Add(this.GamePausedHintLabel);
             this.Controls.Add(this.GamePausedLabel);
+            this.Controls.Add(this.GamePausedHintLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.gameScreen);
             this.Name = "GameForm";
-            this.Text = "GameForm";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
+            this.Text = "Asteroids";
             ((System.ComponentModel.ISupportInitialize)(this.gameScreen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

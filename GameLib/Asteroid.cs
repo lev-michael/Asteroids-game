@@ -6,32 +6,23 @@ using System.Threading.Tasks;
 
 namespace GameLib
 {
-    public enum AsteroidSize { BIG = 50, MEDIUM = 25, SMALL = 12 }
-    public enum AsteroidSpeed { FAST = 3, MEDIUM = 2, SLOW = 1 }
+    public enum AsteroidSize { BIG = 120, MEDIUM = 60, SMALL = 30 }
+    public enum AsteroidSpeed { FAST = 5, MEDIUM = 3, SLOW = 2 }
    
 
     public class Asteroid : Shape
     {
-        private Random random;
-
         public int Speed { get; set; }
 
-        public Asteroid(AsteroidSize size, double screenWidth, double screenHeight, double angle, double x, double y)
+        public AsteroidSize Radius { get; private set; }
+
+        public Asteroid(AsteroidSize radius, double angle, double x, double y)
         {
-            setSizeAndSpeedOfAsteroid(size);
-            ScreenWidth = screenWidth;
-            ScreenHeight = screenHeight;
+            Radius = radius;
+            setSizeAndSpeedOfAsteroid(radius);
             Angle = angle;
             X = x;
             Y = y;
-        }
-        public Asteroid(AsteroidSize size, double screenWidth, double screenHeight)
-        {
-            random = new Random();
-            setSizeAndSpeedOfAsteroid(size);
-            ScreenWidth = screenWidth;
-            ScreenHeight = screenHeight;
-            generetaRandomCoordinates();
         }
 
         private void setSizeAndSpeedOfAsteroid(AsteroidSize size)
@@ -51,50 +42,6 @@ namespace GameLib
                     Speed = (int)AsteroidSpeed.FAST;
                     break;
             }
-        }
-
-        private void generetaRandomCoordinates()
-        {
-            int startOrEndY = random.Next(0, 2);
-            int startOrEndX = random.Next(0, 2);
-            if (startOrEndY == 0)
-            {
-                if(startOrEndX == 0)
-                {
-                    X = ScreenWidth;
-                    Y = random.Next(10, (int)ScreenHeight-10);
-                    Angle = random.NextDouble() * HALF_OF_PI;
-                } else
-                {
-                    X = 0;
-                    Y = random.Next(10, (int)ScreenHeight-10);
-                    Angle = random.NextDouble() * HALF_OF_PI+ TWO_THIRDS_OF_PI;
-                }
-
-            } else
-            {
-                if (startOrEndX == 0)
-                {
-                    Y = ScreenHeight;
-                    X = random.Next(10, (int)ScreenWidth-10);
-                    Angle = random.NextDouble() * Math.PI;
-                } else
-                {
-                    Y = 0;
-                    X = random.Next(10, (int)ScreenWidth-10);
-                    Angle = random.NextDouble() * Math.PI + Math.PI;
-                }
-            }
-        }
-
-        public bool MoveAsteroid()
-        {
-            X -= Math.Cos(Angle) * Speed;
-            Y -= Math.Sin(Angle) * Speed;
-            if (X-Size > ScreenWidth || X+Size < 0 || Y+Size < 0 || Y-Size > ScreenHeight)
-                return true;
-
-            return false;
-        }
+        }   
     }
 }
