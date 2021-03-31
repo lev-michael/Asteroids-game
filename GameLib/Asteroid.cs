@@ -13,6 +13,7 @@ namespace GameLib
     public class Asteroid : Shape
     {
         public int Speed { get; set; }
+        public double Angle { get; set; }
 
         public AsteroidSize Radius { get; private set; }
 

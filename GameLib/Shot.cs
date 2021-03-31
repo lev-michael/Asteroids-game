@@ -13,6 +13,8 @@ namespace GameLib
         public double EndX { get; set; }
         public double EndY { get; set; }
         public int Speed { get; set; }
+        public double Angle { get; set; }
+
 
         public Shot(double x, double y, double movingAngle)
         {

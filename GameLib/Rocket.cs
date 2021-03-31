@@ -19,21 +19,23 @@ namespace GameLib
         public PointF[] points { get; private set; }
         public int Speed { get; set; }
         private bool Reloading { get; set; }
+        public double Angle { get; set; }
+
+        public BonusType Bonus { get; set; }
 
         private Timer ReloadingTimer = new System.Timers.Timer();
 
-        public Rocket(double screenWidth, double screenHeight)
+        public Rocket(double x, double y)
         {
-            ScreenHeight = screenHeight;
-            ScreenWidth = screenWidth;
-            X = screenWidth / 2;
-            Y = screenHeight / 2;
+            this.X = x;
+            this.Y = y;
+            Bonus = BonusType.TRIPPLE_SHOT ;
+            Angle = Constants.HALF_OF_PI;
             Speed = ROCKET_SPEED;
             Size = ROCKET_SIZE;
-            Angle = Constants.HALF_OF_PI;
             ReloadingTimer.Interval = CADENCE;
             ReloadingTimer.Elapsed += ReloadingTimer_Elapsed;
-            EvaluatePoints(); 
+            EvaluatePoints();
         }
 
         private void ReloadingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -42,18 +44,6 @@ namespace GameLib
             ReloadingTimer.Stop();
         }
 
-        public Rocket(double x, double y, double screenWidth, double screenHeight, int speed, int size)
-        {
-            this.X = x;
-            this.Y = y;
-            Size = size;
-            Angle = Constants.HALF_OF_PI;
-            Speed = speed;
-            ScreenHeight = screenHeight;
-            ScreenWidth = screenWidth;
-            ReloadingTimer.Interval = CADENCE;
-            EvaluatePoints();
-        }
 
         public PointF this[int index]
         {
@@ -79,6 +69,22 @@ namespace GameLib
             return null;
         }
 
+        public Shot[] TripleShoot()
+        {
+            if (!Reloading)
+            {
+                PointF p = GetTopOfTheRocket();
+                Reloading = true;
+                ReloadingTimer.Start();
+                return new Shot[] { 
+                    new Shot(p.X, p.Y, Angle), 
+                    new Shot(p.X, p.Y, Angle+Constants.QUARTER_OF_PI), 
+                    new Shot(p.X, p.Y, Angle- Constants.QUARTER_OF_PI) 
+                };
+            }
+            return null;
+        }
+
         public void EvaluatePoints()
         {
             points = new PointF[4];
@@ -91,6 +97,26 @@ namespace GameLib
         private PointF GetTopOfTheRocket()
         {
             return points[0];
+        }
+
+        public void TurnOffBonus()
+        {
+            Bonus = BonusType.NONE;
+        }
+
+        public bool HasShiled()
+        {
+            return Bonus == BonusType.SHIELD;
+        }
+
+        public bool HasSpeed()
+        {
+            return Bonus == BonusType.SPEED;
+        }
+
+        public bool HasTripleShot()
+        {
+            return Bonus == BonusType.TRIPPLE_SHOT;
         }
     }
 }

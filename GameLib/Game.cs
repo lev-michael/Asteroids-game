@@ -31,7 +31,7 @@ namespace GameLib
         public void StartGame()
         {
             Score = 0;
-            this.Rocket = new Rocket(ScreenWidth, ScreenHeight);
+            this.Rocket = new Rocket(ScreenWidth / 2, ScreenHeight / 2);
         }
 
         public Asteroid detectShotCollision()
@@ -50,12 +50,13 @@ namespace GameLib
                             Shots.Remove(shot);
                             Score += 10;
                             Asteroids.Remove(a);
-                            Explosions.Add(new Explosion(a.X, a.Y, (int) a.Size));
+                            Explosions.Add(new Explosion(a.X, a.Y, (int)a.Size));
                             if (a.Size == (double)AsteroidSize.MEDIUM)
                             {
-                                Asteroids.Add(new Asteroid(AsteroidSize.SMALL, a.Angle +Constants.QUARTER_OF_PI, a.X, a.Y));
+                                Asteroids.Add(new Asteroid(AsteroidSize.SMALL, a.Angle + Constants.QUARTER_OF_PI, a.X, a.Y));
                                 Asteroids.Add(new Asteroid(AsteroidSize.SMALL, a.Angle - Constants.QUARTER_OF_PI, a.X, a.Y));
-                            } else if (a.Size == (double)AsteroidSize.BIG)
+                            }
+                            else if (a.Size == (double)AsteroidSize.BIG)
                             {
                                 Asteroids.Add(new Asteroid(AsteroidSize.MEDIUM, a.Angle + Constants.QUARTER_OF_PI, a.X, a.Y));
                                 Asteroids.Add(new Asteroid(AsteroidSize.MEDIUM, a.Angle - Constants.QUARTER_OF_PI, a.X, a.Y));
@@ -78,6 +79,12 @@ namespace GameLib
                     a = Asteroids[i];
                     if (IsRocketColiedWithAsteroid(a, Rocket.points))
                     {
+                        if (Rocket.HasShiled())
+                        {
+                            Asteroids.Remove(a);
+                            Rocket.TurnOffBonus();
+                            return false;
+                        }
                         EndGame();
                         return true;
                     }
@@ -176,15 +183,25 @@ namespace GameLib
 
         public void Shoot()
         {
-            if(Rocket != null)
+            if (Rocket != null)
             {
-                Shot s = Rocket.Shoot();
-                if (s != null)
+                if (Rocket.HasTripleShot())
                 {
-                    Shots.Add(s);
+                    Shot[] s = Rocket.TripleShoot();
+                    if (s != null)
+                        Shots.AddRange(s);
+                } else
+                {
+                    Shot s = Rocket.Shoot();
+                    if (s != null)
+                        Shots.Add(s);
                 }
+                
+                
             }
+
         }
+
 
         public void RotateRocket(Direction direction)
         {
@@ -299,6 +316,11 @@ namespace GameLib
 
             canvas.DrawPolygon(Pens.White, Rocket.points);
 
+            if (Rocket.HasShiled())
+            {
+                canvas.DrawEllipse(Pens.Aqua, (float)(Rocket.X - Rocket.Size), (float)(Rocket.Y - Rocket.Size), (float)Rocket.Size * 2, (float)Rocket.Size * 2);
+            }
+
             if (Shots.Count > 0)
             {
                 Shot shot;
@@ -322,10 +344,10 @@ namespace GameLib
                     switch (e.Counter++)
                     {
                         case 0:
-                            using(MemoryStream ms =new MemoryStream(Resources.explosion1))
+                            using (MemoryStream ms = new MemoryStream(Resources.explosion1))
                             {
                                 image = Image.FromStream(ms);
-                            }     
+                            }
                             canvas.DrawImage(image, (int)e.X, (int)e.Y);
                             break;
                         case 1:
@@ -336,7 +358,7 @@ namespace GameLib
                             canvas.DrawImage(image, (int)e.X, (int)e.Y);
                             break;
                         case 2:
-                            using (MemoryStream ms = new MemoryStream(Resources.explosion3 ))
+                            using (MemoryStream ms = new MemoryStream(Resources.explosion3))
                             {
                                 image = Image.FromStream(ms);
                             }
