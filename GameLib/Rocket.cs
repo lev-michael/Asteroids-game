@@ -12,7 +12,8 @@ namespace GameLib
 
     public class Rocket : Shape
     {
-        private const int ROCKET_SPEED = 5;
+        private const int ROCKET_NORMAL_SPEED = 5;
+        private const int ROCKET_HIGHER_SPEED = 8;
         private const int ROCKET_SIZE = 30;
         private const int CADENCE = 400;
 
@@ -20,22 +21,47 @@ namespace GameLib
         public int Speed { get; set; }
         private bool Reloading { get; set; }
         public double Angle { get; set; }
-
-        public BonusType Bonus { get; set; }
-
         private Timer ReloadingTimer = new System.Timers.Timer();
+        private Timer BonusExpirationTimer = new System.Timers.Timer();
+
+
+        private BonusType bonus;
+
+        public BonusType Bonus
+        {
+            get { return bonus; }
+            set {
+                if (value == BonusType.SPEED)
+                {
+                    Speed = ROCKET_HIGHER_SPEED;
+                } else
+                {
+                    Speed = ROCKET_NORMAL_SPEED;
+                }
+                bonus = value; 
+            }
+        }
+
 
         public Rocket(double x, double y)
         {
             this.X = x;
             this.Y = y;
-            Bonus = BonusType.TRIPPLE_SHOT ;
+            bonus = BonusType.NONE ;
             Angle = Constants.HALF_OF_PI;
-            Speed = ROCKET_SPEED;
+            Speed = ROCKET_NORMAL_SPEED;
             Size = ROCKET_SIZE;
             ReloadingTimer.Interval = CADENCE;
             ReloadingTimer.Elapsed += ReloadingTimer_Elapsed;
+            BonusExpirationTimer.Interval = Constants.FIFTEEN_SEC;
+            BonusExpirationTimer.Elapsed += BonusExpirationTimer_Elapsed;
             EvaluatePoints();
+        }
+
+        private void BonusExpirationTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Bonus = BonusType.NONE;
+            BonusExpirationTimer.Stop();
         }
 
         private void ReloadingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -44,6 +70,10 @@ namespace GameLib
             ReloadingTimer.Stop();
         }
 
+        public void StartBonusTimer()
+        {
+            BonusExpirationTimer.Start();
+        }
 
         public PointF this[int index]
         {
@@ -99,11 +129,15 @@ namespace GameLib
             return points[0];
         }
 
-        public void TurnOffBonus()
+        public void DisableBonus()
         {
             Bonus = BonusType.NONE;
         }
 
+        public bool HasBonus()
+        {
+            return Bonus != BonusType.NONE;
+        }
         public bool HasShiled()
         {
             return Bonus == BonusType.SHIELD;

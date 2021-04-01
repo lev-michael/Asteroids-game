@@ -36,6 +36,7 @@
             this.asteroidTimer = new System.Windows.Forms.Timer(this.components);
             this.GamePausedLabel = new System.Windows.Forms.Label();
             this.GamePausedHintLabel = new System.Windows.Forms.Label();
+            this.BonusTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gameScreen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,8 +51,9 @@
             this.gameScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gameScreen.BackgroundImage")));
             this.gameScreen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gameScreen.Location = new System.Drawing.Point(0, 0);
+            this.gameScreen.Margin = new System.Windows.Forms.Padding(4);
             this.gameScreen.Name = "gameScreen";
-            this.gameScreen.Size = new System.Drawing.Size(1258, 664);
+            this.gameScreen.Size = new System.Drawing.Size(1617, 830);
             this.gameScreen.TabIndex = 0;
             this.gameScreen.TabStop = false;
             this.gameScreen.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreenPaint);
@@ -61,7 +63,8 @@
             this.scoreLabel.AutoSize = true;
             this.scoreLabel.Font = new System.Drawing.Font("Silkscreen", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.scoreLabel.Location = new System.Drawing.Point(12, 9);
+            this.scoreLabel.Location = new System.Drawing.Point(15, 11);
+            this.scoreLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.scoreLabel.Name = "scoreLabel";
             this.scoreLabel.Size = new System.Drawing.Size(169, 28);
             this.scoreLabel.TabIndex = 1;
@@ -77,7 +80,8 @@
             this.GamePausedLabel.AutoSize = true;
             this.GamePausedLabel.Font = new System.Drawing.Font("Silkscreen", 48F);
             this.GamePausedLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.GamePausedLabel.Location = new System.Drawing.Point(288, 216);
+            this.GamePausedLabel.Location = new System.Drawing.Point(370, 270);
+            this.GamePausedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.GamePausedLabel.Name = "GamePausedLabel";
             this.GamePausedLabel.Size = new System.Drawing.Size(758, 84);
             this.GamePausedLabel.TabIndex = 1;
@@ -90,7 +94,8 @@
             this.GamePausedHintLabel.AutoSize = true;
             this.GamePausedHintLabel.Font = new System.Drawing.Font("Silkscreen", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GamePausedHintLabel.ForeColor = System.Drawing.Color.Snow;
-            this.GamePausedHintLabel.Location = new System.Drawing.Point(378, 358);
+            this.GamePausedHintLabel.Location = new System.Drawing.Point(486, 448);
+            this.GamePausedHintLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.GamePausedHintLabel.Name = "GamePausedHintLabel";
             this.GamePausedHintLabel.Size = new System.Drawing.Size(533, 93);
             this.GamePausedHintLabel.TabIndex = 2;
@@ -98,19 +103,22 @@
             this.GamePausedHintLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.GamePausedHintLabel.Visible = false;
             // 
-            // ExplosionTimer
+            // BonusTimer
             // 
+            this.BonusTimer.Enabled = true;
+            this.BonusTimer.Tick += new System.EventHandler(this.BonusTimer_Tick);
             // 
             // GameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1258, 664);
+            this.ClientSize = new System.Drawing.Size(1617, 830);
             this.Controls.Add(this.GamePausedLabel);
             this.Controls.Add(this.GamePausedHintLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.gameScreen);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GameForm";
             this.Text = "Asteroids";
             ((System.ComponentModel.ISupportInitialize)(this.gameScreen)).EndInit();
@@ -127,5 +135,6 @@
         private System.Windows.Forms.Timer asteroidTimer;
         private System.Windows.Forms.Label GamePausedLabel;
         private System.Windows.Forms.Label GamePausedHintLabel;
+        private System.Windows.Forms.Timer BonusTimer;
     }
 }

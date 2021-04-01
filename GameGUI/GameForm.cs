@@ -14,10 +14,12 @@ namespace GameGUI
         public static GameForm CurrentForm;
         private bool Paused { get; set; }
         private Game Game;
+        private Random random;
        
 
         public GameForm()
         {
+            random = new Random();
             CurrentForm = this;
             InitializeComponent();
             StartGame();
@@ -25,10 +27,12 @@ namespace GameGUI
 
         private void StartGame()
         {
+
             Game = new Game(gameScreen.Width, gameScreen.Height);
             Game.StartGame();
             timer.Tick += UpdateScreen;
             asteroidTimer.Tick += AsteroidTimer_Tick;
+            BonusTimer.Interval = random.Next(Constants.THIRTY_SEC, Constants.ONE_MINUTE);
         }
 
 
@@ -42,7 +46,8 @@ namespace GameGUI
         private void UpdateScreen(object sender, EventArgs e)
         {
             gameScreen.Invalidate();
-            Asteroid a = Game.detectShotCollision();        
+            Game.DetectShotCollisionWithAsteroid();
+            Game.DetectBonusCollisionWithRocket();
             scoreLabel.Text = $"Score: {Game.Score}";
             if (Game.IsRocketCollisionDetected())
             {
@@ -109,6 +114,18 @@ namespace GameGUI
         private void GameScreenPaint(object sender, PaintEventArgs e)
         {
             Game.RenderGame(e.Graphics);
+        }
+
+        private void BonusTimer_Tick(object sender, EventArgs e)
+        {
+            if (Game.IsBonusSpawned())
+            {
+                Game.DisableBonus();
+            }
+            else
+            {
+                Game.SpawnBonus();
+            }
         }
     }
 }

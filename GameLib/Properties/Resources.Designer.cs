@@ -89,5 +89,35 @@ namespace GameLib.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] lighting {
+            get {
+                object obj = ResourceManager.GetObject("lighting", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shield {
+            get {
+                object obj = ResourceManager.GetObject("shield", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sword {
+            get {
+                object obj = ResourceManager.GetObject("sword", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

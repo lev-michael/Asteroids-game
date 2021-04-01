@@ -17,6 +17,7 @@ namespace GameLib
         private List<Shot> Shots;
         private List<Asteroid> Asteroids;
         private List<Explosion> Explosions;
+        private Bonus Bonus;
 
         public Game(double width, double height)
         {
@@ -26,6 +27,7 @@ namespace GameLib
             Asteroids = new List<Asteroid>();
             Shots = new List<Shot>();
             Explosions = new List<Explosion>();
+            Bonus = new Bonus(BonusType.NONE, 0, 0);
         }
 
         public void StartGame()
@@ -34,7 +36,7 @@ namespace GameLib
             this.Rocket = new Rocket(ScreenWidth / 2, ScreenHeight / 2);
         }
 
-        public Asteroid detectShotCollision()
+        public void DetectShotCollisionWithAsteroid()
         {
             if (Shots.Count > 0 && Asteroids.Count > 0)
             {
@@ -61,12 +63,23 @@ namespace GameLib
                                 Asteroids.Add(new Asteroid(AsteroidSize.MEDIUM, a.Angle + Constants.QUARTER_OF_PI, a.X, a.Y));
                                 Asteroids.Add(new Asteroid(AsteroidSize.MEDIUM, a.Angle - Constants.QUARTER_OF_PI, a.X, a.Y));
                             }
-                            return a;
                         }
                     }
                 }
             }
-            return null;
+        }
+
+        public void DetectBonusCollisionWithRocket()
+        {
+            if(Rocket!= null && Bonus.IsBonusActive())
+            {
+                if (IsVertexOfRocketIntersectingCircle(Bonus.X, Bonus.Y, Bonus.Size, Rocket.X, Rocket.Y))
+                {
+                    Rocket.Bonus = Bonus.Type;
+                    Bonus.DisableBonus();
+                    Rocket.StartBonusTimer();
+                }
+            }
         }
 
         public bool IsRocketCollisionDetected()
@@ -82,7 +95,7 @@ namespace GameLib
                         if (Rocket.HasShiled())
                         {
                             Asteroids.Remove(a);
-                            Rocket.TurnOffBonus();
+                            Rocket.DisableBonus();
                             return false;
                         }
                         EndGame();
@@ -91,6 +104,32 @@ namespace GameLib
                 }
             }
             return false;
+        }
+
+        public void DisableBonus()
+        {
+            Bonus.DisableBonus();
+        }
+
+        public void SpawnBonus()
+        {
+            int randType = random.Next(1, 4);
+            int randX = random.Next((int)Bonus.Size, (int) (ScreenWidth - Bonus.Size));
+            int randY = random.Next((int)Bonus.Size, (int)(ScreenHeight- Bonus.Size));
+            BonusType type = BonusType.NONE;
+            switch (randType)
+            {
+                case 1:
+                    type = BonusType.SHIELD;
+                    break;
+                case 2:
+                    type = BonusType.SPEED;
+                    break;
+                case 3:
+                    type = BonusType.TRIPPLE_SHOT;
+                    break;
+            }
+            Bonus = new Bonus(type, randX, randY);
         }
 
         private bool IsRocketColiedWithAsteroid(Asteroid a, PointF[] rocketPoints)
@@ -104,10 +143,10 @@ namespace GameLib
 
                 endPoint = rocketPoints[i];
 
-                if (IsVertexOfRocketIntersectingAsteroid(a.X, a.Y, a.Size, startPoint.X, startPoint.Y))
+                if (IsVertexOfRocketIntersectingCircle(a.X, a.Y, a.Size, startPoint.X, startPoint.Y))
                     return true;
 
-                if (IsEdgeOfRocketIntersectingAsteroid(a.X, a.Y, a.Size, startPoint.X, startPoint.Y, endPoint.X, endPoint.Y))
+                if (IsEdgeOfRocketIntersectingCircle(a.X, a.Y, a.Size, startPoint.X, startPoint.Y, endPoint.X, endPoint.Y))
                     return true;
 
                 startPoint = endPoint;
@@ -115,7 +154,7 @@ namespace GameLib
             return false;
         }
 
-        private bool IsVertexOfRocketIntersectingAsteroid(double cirlceCenterX, double cirlceCenterY, double radius, double pointX, double pointY)
+        private bool IsVertexOfRocketIntersectingCircle(double cirlceCenterX, double cirlceCenterY, double radius, double pointX, double pointY)
         {
             double c1x = cirlceCenterX - pointX;
             double c1y = cirlceCenterY - pointY;
@@ -127,7 +166,7 @@ namespace GameLib
             return false;
         }
 
-        private bool IsEdgeOfRocketIntersectingAsteroid(double cirlceCenterX, double cirlceCenterY, double radius, double startPointX, double startPointY, double endPointX, double endPointY)
+        private bool IsEdgeOfRocketIntersectingCircle(double cirlceCenterX, double cirlceCenterY, double radius, double startPointX, double startPointY, double endPointX, double endPointY)
         {
             double c1x = cirlceCenterX - startPointX;
             double c1y = cirlceCenterY - startPointY;
@@ -235,7 +274,7 @@ namespace GameLib
             AsteroidSize size;
             double asteroidX, asteroidY, asteroidAngle;
 
-            int randNum = random.Next(0, 11);
+            int randNum = random.Next(0, 12);
             if (randNum < 2)
             {
                 size = AsteroidSize.SMALL;
@@ -382,6 +421,39 @@ namespace GameLib
                         Asteroids.Remove(a);
                 }
             }
+            if(Bonus.IsBonusActive())
+            {
+                Image img = null;
+                switch (Bonus.Type)
+                {
+                    case BonusType.SHIELD:
+                        using (MemoryStream ms = new MemoryStream(Resources.shield))
+                        {
+                            img = Image.FromStream(ms);
+                        }
+                        break;
+                    case BonusType.SPEED:
+                        using (MemoryStream ms = new MemoryStream(Resources.lighting))
+                        {
+                            img = Image.FromStream(ms);
+                        }
+                        break;
+                    case BonusType.TRIPPLE_SHOT:
+                        using (MemoryStream ms = new MemoryStream(Resources.sword))
+                        {
+                            img = Image.FromStream(ms);
+                        }
+                        break;
+                }
+                canvas.DrawImage(img, (int) (Bonus.X - Bonus.Size/2), (int) (Bonus.Y - Bonus.Size/2));
+                Pen pen = new Pen(Color.Yellow, 4);
+                canvas.DrawEllipse(pen, (float)(Bonus.X - Bonus.Size/2)-10, (float)(Bonus.Y - Bonus.Size/2)-10, (float)Bonus.Size*2, (float)Bonus.Size*2);
+            }
+        }
+
+        public bool IsBonusSpawned()
+        {
+            return Bonus.IsBonusActive();
         }
 
 
