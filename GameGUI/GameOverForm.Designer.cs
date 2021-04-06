@@ -43,7 +43,7 @@
             this.GameOverLabel.AutoSize = true;
             this.GameOverLabel.Font = new System.Drawing.Font("Silkscreen", 82F);
             this.GameOverLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.GameOverLabel.Location = new System.Drawing.Point(99, 86);
+            this.GameOverLabel.Location = new System.Drawing.Point(46, 57);
             this.GameOverLabel.Name = "GameOverLabel";
             this.GameOverLabel.Padding = new System.Windows.Forms.Padding(50);
             this.GameOverLabel.Size = new System.Drawing.Size(1178, 245);
@@ -53,9 +53,7 @@
             // 
             // ScoreLabel
             // 
-            this.ScoreLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ScoreLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ScoreLabel.AutoSize = true;
             this.ScoreLabel.Font = new System.Drawing.Font("Silkscreen", 26F);
             this.ScoreLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -101,13 +99,14 @@
             // 
             // GameOverForm
             // 
-            
+            this.MaximizeBox = false;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1301, 664);
+            this.ClientSize = new System.Drawing.Size(1258, 664);
             this.Controls.Add(this.TooltipLabel2);
             this.Controls.Add(this.TooltipLabel);
-            this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.GameOverLabel);
+            this.Controls.Add(this.ScoreLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "GameOverForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GameOverForm";

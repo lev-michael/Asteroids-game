@@ -16,5 +16,7 @@ namespace GameLib
         public const int THIRTY_SEC = 30000;
         public const int ONE_MINUTE = 60000;
         public const int BONUS_SIZE = 32;
+        public const string HIGH_SCORE_FILE = "..//..//highScore.txt";
+
     }
 }

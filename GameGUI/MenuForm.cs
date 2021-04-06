@@ -36,10 +36,10 @@ namespace GameGUI
 
         private void HighScoreButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+           
             HighScoreForm form = new HighScoreForm();
-            form.ShowDialog();
-            this.Show();
+            form.Show();
+            this.Hide();
         }
 
         private void AboutButton_Click(object sender, EventArgs e)

@@ -53,7 +53,7 @@
             this.gameScreen.Location = new System.Drawing.Point(0, 0);
             this.gameScreen.Margin = new System.Windows.Forms.Padding(4);
             this.gameScreen.Name = "gameScreen";
-            this.gameScreen.Size = new System.Drawing.Size(1617, 830);
+            this.gameScreen.Size = new System.Drawing.Size(1258, 664);
             this.gameScreen.TabIndex = 0;
             this.gameScreen.TabStop = false;
             this.gameScreen.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreenPaint);
@@ -77,6 +77,7 @@
             // 
             // GamePausedLabel
             // 
+
             this.GamePausedLabel.AutoSize = true;
             this.GamePausedLabel.Font = new System.Drawing.Font("Silkscreen", 48F);
             this.GamePausedLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -110,14 +111,16 @@
             // 
             // GameForm
             // 
+            this.MaximizeBox = false;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1617, 830);
+            this.ClientSize = new System.Drawing.Size(1258, 664);
             this.Controls.Add(this.GamePausedLabel);
             this.Controls.Add(this.GamePausedHintLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.gameScreen);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GameForm";
             this.Text = "Asteroids";

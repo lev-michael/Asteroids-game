@@ -16,5 +16,15 @@ namespace GameGUI
         {
             InitializeComponent();
         }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Space)
+            {
+                MenuForm form = new MenuForm();
+                form.Show();
+                this.Hide();
+            }
+        }
     }
 }

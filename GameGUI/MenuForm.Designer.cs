@@ -52,7 +52,6 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Silkscreen", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(348, 42);
@@ -61,6 +60,7 @@
             this.label1.Size = new System.Drawing.Size(637, 124);
             this.label1.TabIndex = 4;
             this.label1.Text = "Asteroids";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NewGameButton
             // 
@@ -106,6 +106,7 @@
             // 
             // MenuForm
             // 
+            this.MaximizeBox = false;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -115,12 +116,12 @@
             this.Controls.Add(this.NewGameButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ExitButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MenuForm";
             this.Text = "Asteroids";
             this.Load += new System.EventHandler(this.Menu_Form_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
