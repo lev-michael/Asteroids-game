@@ -297,7 +297,7 @@ namespace GameLib
 
             if (randNum < 3)
             {
-                asteroidX = ScreenWidth;
+                asteroidX = ScreenWidth + (int)size;
                 asteroidY = random.Next((int)size, (int)ScreenHeight - (int)size);
                 if (asteroidY < ScreenHeight / 2)
                 {
@@ -311,7 +311,7 @@ namespace GameLib
             }
             else if (randNum < 6)
             {
-                asteroidX = 0;
+                asteroidX = -(int)size;
                 asteroidY = random.Next((int)size, (int)ScreenHeight - (int)size);
                 if (asteroidY < ScreenHeight / 2)
                 {
@@ -324,7 +324,7 @@ namespace GameLib
             }
             else if (randNum < 9)
             {
-                asteroidY = ScreenHeight;
+                asteroidY = ScreenHeight + (int)size;
                 asteroidX = random.Next((int)size, (int)ScreenWidth - (int)size);
                 if (asteroidX < ScreenWidth / 2)
                 {
@@ -337,7 +337,7 @@ namespace GameLib
             }
             else
             {
-                asteroidY = 0;
+                asteroidY = -(int)size;
                 asteroidX = random.Next((int)size, (int)ScreenWidth - (int)size);
                 if (asteroidX < ScreenHeight / 2)
                 {
