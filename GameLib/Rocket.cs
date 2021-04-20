@@ -132,6 +132,7 @@ namespace GameLib
         public void DisableBonus()
         {
             Bonus = BonusType.NONE;
+            BonusExpirationTimer.Stop();
         }
 
         public bool HasBonus()

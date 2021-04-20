@@ -11,7 +11,7 @@ namespace GameLib
    
 
     public class Asteroid : Shape
-    {
+    {     
         public int Speed { get; set; }
         public double Angle { get; set; }
 

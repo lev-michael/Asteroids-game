@@ -10,7 +10,6 @@ namespace GameGUI
     enum AnimationSize { SMALL = 64, MEDIUM = 100, BIG = 150 };
     public partial class GameForm : Form
     {
-
         public static GameForm CurrentForm;
         private bool Paused { get; set; }
         private Game Game;
@@ -27,7 +26,6 @@ namespace GameGUI
 
         private void StartGame()
         {
-
             Game = new Game(gameScreen.Width, gameScreen.Height);
             Game.StartGame();
             timer.Tick += UpdateScreen;
@@ -58,15 +56,8 @@ namespace GameGUI
 
         private void OnKeyDown()
         {
-            if (Keyboard.IsKeyDown(Key.P))
-            {
-                Pause();
-                return;
-            }
-
             if (Keyboard.IsKeyDown(Key.Up))
                 Game.MoveRocket();
-
 
             if (Keyboard.IsKeyDown(Key.Left))
             {
@@ -116,15 +107,11 @@ namespace GameGUI
             Game.RenderGame(e.Graphics);
         }
 
-        private void BonusTimer_Tick(object sender, EventArgs e)
+        private void GameForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (Game.IsBonusSpawned())
+            if(e.KeyCode == Keys.P)
             {
-                Game.DisableBonus();
-            }
-            else
-            {
-                Game.SpawnBonus();
+                Pause();
             }
         }
     }

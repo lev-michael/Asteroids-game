@@ -28,6 +28,18 @@ namespace GameLib
             Shots = new List<Shot>();
             Explosions = new List<Explosion>();
             Bonus = new Bonus(BonusType.NONE, 0, 0);
+            Bonus.BonusExpiredEvent += Bonus_BonusExpiredEvent;
+        }
+
+        private void Bonus_BonusExpiredEvent()
+        {
+            if (IsBonusSpawned())
+            {
+                Bonus.DisableBonus();
+            } else
+            {
+                SpawnBonus();
+            }
         }
 
         public void StartGame()
@@ -104,11 +116,6 @@ namespace GameLib
                 }
             }
             return false;
-        }
-
-        public void DisableBonus()
-        {
-            Bonus.DisableBonus();
         }
 
         public void SpawnBonus()

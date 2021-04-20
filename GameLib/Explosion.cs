@@ -9,8 +9,6 @@ namespace GameLib
     {
         private const int IMAGE_SIZE = 128;
         public int Counter { get; set; }
-
-
         public Explosion(double x, double y, int size)
         {
             Counter = 0;
