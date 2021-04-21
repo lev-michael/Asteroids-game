@@ -6,17 +6,21 @@ using System.IO;
 
 namespace GameLib
 {
+    public delegate void EndGameHandler();
+
     public class Game
     {
+        public event EndGameHandler EndGameEvent;
+
         private Random random;
         public double ScreenWidth { get; set; }
         public double ScreenHeight { get; set; }
         public int Score { get; private set; }
 
         public Rocket Rocket { get; private set; }
-        private List<Shot> Shots;
-        private List<Asteroid> Asteroids;
-        private List<Explosion> Explosions;
+        private IList<Shot> Shots;
+        private IList<Asteroid> Asteroids;
+        private IList<Explosion> Explosions;
         private Bonus Bonus;
 
         public Game(double width, double height)
@@ -94,7 +98,7 @@ namespace GameLib
             }
         }
 
-        public bool IsRocketCollisionDetected()
+        public void DetectRocketAsteroidCollision()
         {
             if (Rocket != null && Asteroids.Count > 0)
             {
@@ -108,14 +112,12 @@ namespace GameLib
                         {
                             Asteroids.Remove(a);
                             Rocket.DisableBonus();
-                            return false;
+                            return;
                         }
                         EndGame();
-                        return true;
                     }
                 }
             }
-            return false;
         }
 
         public void SpawnBonus()
@@ -235,7 +237,12 @@ namespace GameLib
                 {
                     Shot[] s = Rocket.TripleShoot();
                     if (s != null)
-                        Shots.AddRange(s);
+                    {
+                        for (int i = 0; i < s.Length; i++)
+                        {
+                            Shots.Add(s[i]);
+                        }
+                    }
                 } else
                 {
                     Shot s = Rocket.Shoot();
@@ -274,6 +281,7 @@ namespace GameLib
             Asteroids.Clear();
             Shots.Clear();
             Rocket = null;
+            EndGameEvent?.Invoke();
         }
 
         public void GenerateAsteroid()

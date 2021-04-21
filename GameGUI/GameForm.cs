@@ -28,9 +28,16 @@ namespace GameGUI
         {
             Game = new Game(gameScreen.Width, gameScreen.Height);
             Game.StartGame();
+            Game.EndGameEvent += OnEndGameEvent;
             timer.Tick += UpdateScreen;
             asteroidTimer.Tick += AsteroidTimer_Tick;
-            BonusTimer.Interval = random.Next(Constants.THIRTY_SEC, Constants.ONE_MINUTE);
+        }
+
+        private void OnEndGameEvent()
+        {
+            this.Hide();
+            GameOverForm form = new GameOverForm(Game.Score);
+            form.Show();
         }
 
 
@@ -46,11 +53,8 @@ namespace GameGUI
             gameScreen.Invalidate();
             Game.DetectShotCollisionWithAsteroid();
             Game.DetectBonusCollisionWithRocket();
+            Game.DetectRocketAsteroidCollision();
             scoreLabel.Text = $"Score: {Game.Score}";
-            if (Game.IsRocketCollisionDetected())
-            {
-                EndGame();
-            }
             OnKeyDown();
         }
 
@@ -91,15 +95,6 @@ namespace GameGUI
                 GamePausedHintLabel.Visible = true;
                 GamePausedLabel.Visible = true;
             }
-        }
-
-
-        private void EndGame()
-        {
-            Game.EndGame();
-            this.Hide();
-            GameOverForm form = new GameOverForm(Game.Score);
-            form.Show();
         }
 
         private void GameScreenPaint(object sender, PaintEventArgs e)

@@ -7,13 +7,14 @@ namespace GameLib
 {
     public delegate void BonusHandler();
 
+   
     public enum BonusType { NONE=0, SPEED=1, SHIELD=2, TRIPPLE_SHOT=3}
     public class Bonus: Shape
     {
 
         public event BonusHandler BonusExpiredEvent;
-
         private Timer timer;
+        private Random random = new Random();
         public BonusType Type { get; private set; }
 
         public Bonus(BonusType type, double x, double y)
@@ -23,7 +24,7 @@ namespace GameLib
             Type = type;
             Size = Constants.BONUS_SIZE;
             timer  = new System.Timers.Timer();
-            timer.Interval = Constants.THIRTY_SEC;
+            timer.Interval = random.Next(Constants.THIRTY_SEC, Constants.ONE_MINUTE);
             timer.Start();
             timer.Elapsed += OnTimer_Elapsed;
         }

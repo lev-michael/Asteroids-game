@@ -36,7 +36,6 @@
             this.asteroidTimer = new System.Windows.Forms.Timer(this.components);
             this.GamePausedLabel = new System.Windows.Forms.Label();
             this.GamePausedHintLabel = new System.Windows.Forms.Label();
-            this.BonusTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gameScreen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,12 +95,12 @@
             this.GamePausedHintLabel.AutoSize = true;
             this.GamePausedHintLabel.Font = new System.Drawing.Font("Silkscreen", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GamePausedHintLabel.ForeColor = System.Drawing.Color.Snow;
-            this.GamePausedHintLabel.Location = new System.Drawing.Point(387, 368);
+            this.GamePausedHintLabel.Location = new System.Drawing.Point(423, 367);
             this.GamePausedHintLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.GamePausedHintLabel.Name = "GamePausedHintLabel";
-            this.GamePausedHintLabel.Size = new System.Drawing.Size(533, 93);
+            this.GamePausedHintLabel.Size = new System.Drawing.Size(439, 124);
             this.GamePausedHintLabel.TabIndex = 2;
-            this.GamePausedHintLabel.Text = "Press P for resume\r\nPress ESC for end game\r\n\r\n";
+            this.GamePausedHintLabel.Text = "Press P for resume\r\n\r\n\r\n\r\n";
             this.GamePausedHintLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.GamePausedHintLabel.Visible = false;
             // 
@@ -135,6 +134,6 @@
         private System.Windows.Forms.Timer asteroidTimer;
         private System.Windows.Forms.Label GamePausedLabel;
         private System.Windows.Forms.Label GamePausedHintLabel;
-        private System.Windows.Forms.Timer BonusTimer;
+
     }
 }
