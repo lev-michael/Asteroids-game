@@ -16,8 +16,8 @@ namespace GameLib
         public Bonus(double width, double height)
         {
             Size = Constants.BONUS_SIZE;
-            X = random.Next((int)Size, (int)(width - Size));
-            Y = random.Next((int) Size, (int)(height - Size));
+            X = random.Next((int)Size, (int)(width == 0 ? width + Size: width-Size));
+            Y = random.Next((int) Size, (int)(height == 0 ? height + Size : height - Size));
             Type = GetRandomType();
             timer = new Timer
             {

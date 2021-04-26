@@ -41,8 +41,8 @@ namespace GameGUI
         private void AsteroidTimer_Tick(object sender, EventArgs e)
         {
             Game.GenerateAsteroid();
-            if(asteroidTimer.Interval>900)
-                asteroidTimer.Interval -= 10;
+            if(asteroidTimer.Interval>800)
+                asteroidTimer.Interval -= 50;
         }
 
         private void UpdateScreen(object sender, EventArgs e)
