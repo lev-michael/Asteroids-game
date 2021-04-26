@@ -4,6 +4,8 @@ This game is developed for seminar paper as part of college course of C# basics 
 
 The game is inspired by arcade game ASTEROIDS. Player control space-ship that can rotate left and right, fire shots, and move straight forward. The goal is avoid asteroids which are drifting through space. There are 3 types of asteroid, divided by size and speed. If player hits an asteroid with shot, it splits into two smaller ones, and the player get an extra score points. Time to time some bonus will spawn on random position. Player can activate the bonus for predetermined number of time by hitting it.
 
+![alt text](https://github.com/lev-michael/ICSHP_semestralni_prace/blob/main/GameLib/images/Asteroids_screenshot.png)
+
 **Controls:**
 - ARROW UP - Move forward
 - ARROW LEFT/RIGHT - Rotate
