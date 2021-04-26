@@ -8,8 +8,6 @@ using System.Drawing;
 
 namespace GameLib
 {
-    public enum Direction { RIGHT = 2, LEFT = -2 };
-
     public class Rocket : Shape
     {
         private const int ROCKET_NORMAL_SPEED = 5;
@@ -17,12 +15,16 @@ namespace GameLib
         private const int ROCKET_SIZE = 30;
         private const int CADENCE = 400;
 
+        public bool HasShiled => Bonus == BonusType.SHIELD;
+        public bool HasTripleShot => Bonus == BonusType.TRIPPLE_SHOT;
+
+
         public PointF[] points { get; private set; }
         public int Speed { get; set; }
         private bool Reloading { get; set; }
         public double Angle { get; set; }
-        private Timer ReloadingTimer = new System.Timers.Timer();
-        private Timer BonusExpirationTimer = new System.Timers.Timer();
+        private Timer ReloadingTimer = new Timer();
+        private Timer BonusExpirationTimer = new Timer();
 
 
         private BonusType bonus;
@@ -135,23 +137,5 @@ namespace GameLib
             BonusExpirationTimer.Stop();
         }
 
-        public bool HasBonus()
-        {
-            return Bonus != BonusType.NONE;
-        }
-        public bool HasShiled()
-        {
-            return Bonus == BonusType.SHIELD;
-        }
-
-        public bool HasSpeed()
-        {
-            return Bonus == BonusType.SPEED;
-        }
-
-        public bool HasTripleShot()
-        {
-            return Bonus == BonusType.TRIPPLE_SHOT;
-        }
     }
 }

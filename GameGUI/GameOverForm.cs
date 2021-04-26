@@ -40,7 +40,7 @@ namespace GameGUI
             scores.Add(score);
             if (file.Exists)
             {
-                String textScore;
+                string textScore;
                 using (var reader = new StreamReader(Constants.HIGH_SCORE_FILE))
                 {
                     int i;

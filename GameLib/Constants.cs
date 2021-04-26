@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace GameLib
 {
-    public class Constants
+    public abstract class Constants
     {
 
         public const double QUARTER_OF_PI = Math.PI / 4;

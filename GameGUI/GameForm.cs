@@ -7,18 +7,15 @@ using GameLib;
 
 namespace GameGUI
 {
-    enum AnimationSize { SMALL = 64, MEDIUM = 100, BIG = 150 };
     public partial class GameForm : Form
     {
         public static GameForm CurrentForm;
         private bool Paused { get; set; }
         private Game Game;
-        private Random random;
        
 
         public GameForm()
         {
-            random = new Random();
             CurrentForm = this;
             InitializeComponent();
             StartGame();

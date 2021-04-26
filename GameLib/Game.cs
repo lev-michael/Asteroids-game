@@ -12,7 +12,6 @@ namespace GameLib
     {
         public event EndGameHandler EndGameEvent;
 
-        private Random random;
         public double ScreenWidth { get; set; }
         public double ScreenHeight { get; set; }
         public int Score { get; private set; }
@@ -25,7 +24,6 @@ namespace GameLib
 
         public Game(double width, double height)
         {
-            random = new Random();
             ScreenHeight = height;
             ScreenWidth = width;
             Asteroids = new List<Asteroid>();
@@ -59,25 +57,25 @@ namespace GameLib
                 for (int i = 0; i < Shots.Count; i++)
                 {
                     Shot shot = Shots[i];
-                    Asteroid a;
+                    Asteroid asteroid;
                     for (int j = 0; j < Asteroids.Count; j++)
                     {
-                        a = Asteroids[j];
-                        if (Math.Pow(shot.EndX - a.X, 2) + Math.Pow(shot.EndY - a.Y, 2) <= Math.Pow(a.Size, 2))
+                        asteroid = Asteroids[j];
+                        if (Math.Pow(shot.EndX - asteroid.X, 2) + Math.Pow(shot.EndY - asteroid.Y, 2) <= Math.Pow(asteroid.Size, 2))
                         {
                             Shots.Remove(shot);
                             Score += 10;
-                            Asteroids.Remove(a);
-                            Explosions.Add(new Explosion(a.X, a.Y, (int)a.Size));
-                            if (a.Size == (double)AsteroidSize.MEDIUM)
+                            Asteroids.Remove(asteroid);
+                            Explosions.Add(new Explosion(asteroid.X, asteroid.Y, (int)asteroid.Size));
+                            if (asteroid.Size == (double)SizeType.MEDIUM)
                             {
-                                Asteroids.Add(new Asteroid(AsteroidSize.SMALL, a.Angle + Constants.QUARTER_OF_PI, a.X, a.Y));
-                                Asteroids.Add(new Asteroid(AsteroidSize.SMALL, a.Angle - Constants.QUARTER_OF_PI, a.X, a.Y));
+                                Asteroids.Add(new Asteroid(SizeType.SMALL, asteroid.Angle + Constants.QUARTER_OF_PI, asteroid.X, asteroid.Y));
+                                Asteroids.Add(new Asteroid(SizeType.SMALL, asteroid.Angle - Constants.QUARTER_OF_PI, asteroid.X, asteroid.Y));
                             }
-                            else if (a.Size == (double)AsteroidSize.BIG)
+                            else if (asteroid.Size == (double)SizeType.BIG)
                             {
-                                Asteroids.Add(new Asteroid(AsteroidSize.MEDIUM, a.Angle + Constants.QUARTER_OF_PI, a.X, a.Y));
-                                Asteroids.Add(new Asteroid(AsteroidSize.MEDIUM, a.Angle - Constants.QUARTER_OF_PI, a.X, a.Y));
+                                Asteroids.Add(new Asteroid(SizeType.MEDIUM, asteroid.Angle + Constants.QUARTER_OF_PI, asteroid.X, asteroid.Y));
+                                Asteroids.Add(new Asteroid(SizeType.MEDIUM, asteroid.Angle - Constants.QUARTER_OF_PI, asteroid.X, asteroid.Y));
                             }
                         }
                     }
@@ -102,15 +100,15 @@ namespace GameLib
         {
             if (Rocket != null && Asteroids.Count > 0)
             {
-                Asteroid a;
+                Asteroid asteroid;
                 for (int i = 0; i < Asteroids.Count; i++)
                 {
-                    a = Asteroids[i];
-                    if (IsRocketColiedWithAsteroid(a, Rocket.points))
+                    asteroid = Asteroids[i];
+                    if (IsRocketColiedWithAsteroid(asteroid, Rocket.points))
                     {
-                        if (Rocket.HasShiled())
+                        if (Rocket.HasShiled)
                         {
-                            Asteroids.Remove(a);
+                            Asteroids.Remove(asteroid);
                             Rocket.DisableBonus();
                             return;
                         }
@@ -122,23 +120,7 @@ namespace GameLib
 
         public void SpawnBonus()
         {
-            int randType = random.Next(1, 4);
-            int randX = random.Next((int)Bonus.Size, (int) (ScreenWidth - Bonus.Size));
-            int randY = random.Next((int)Bonus.Size, (int)(ScreenHeight- Bonus.Size));
-            BonusType type = BonusType.NONE;
-            switch (randType)
-            {
-                case 1:
-                    type = BonusType.SHIELD;
-                    break;
-                case 2:
-                    type = BonusType.SPEED;
-                    break;
-                case 3:
-                    type = BonusType.TRIPPLE_SHOT;
-                    break;
-            }
-            Bonus = new Bonus(type, randX, randY);
+            Bonus = new Bonus(ScreenWidth, ScreenHeight);
         }
 
         private bool IsRocketColiedWithAsteroid(Asteroid a, PointF[] rocketPoints)
@@ -233,26 +215,23 @@ namespace GameLib
         {
             if (Rocket != null)
             {
-                if (Rocket.HasTripleShot())
+                if (Rocket.HasTripleShot)
                 {
-                    Shot[] s = Rocket.TripleShoot();
-                    if (s != null)
+                    Shot[] shots = Rocket.TripleShoot();
+                    if (shots != null)
                     {
-                        for (int i = 0; i < s.Length; i++)
+                        for (int i = 0; i < shots.Length; i++)
                         {
-                            Shots.Add(s[i]);
+                            Shots.Add(shots[i]);
                         }
                     }
                 } else
                 {
-                    Shot s = Rocket.Shoot();
-                    if (s != null)
-                        Shots.Add(s);
-                }
-                
-                
+                    Shot shot = Rocket.Shoot();
+                    if (shot != null)
+                        Shots.Add(shot);
+                }  
             }
-
         }
 
 
@@ -262,15 +241,15 @@ namespace GameLib
             {
                 double radAngle = ToRadians((double)direction);
                 Rocket.Angle += radAngle;
-                PointF p;
+                PointF point;
                 for (int i = 0; i < Rocket.points.Length; i++)
                 {
                     if (i == 2)
                         continue;
 
-                    p = Rocket.points[i];
-                    p.X = (float)(((p.X - Rocket.X) * Math.Cos(radAngle)) - ((p.Y - Rocket.Y) * Math.Sin(radAngle)) + Rocket.X);
-                    p.Y = (float)((p.Y - Rocket.Y) * Math.Cos(radAngle) + (p.X - Rocket.X) * Math.Sin(radAngle) + Rocket.Y);
+                    point = Rocket.points[i];
+                    point.X = (float)(((point.X - Rocket.X) * Math.Cos(radAngle)) - ((point.Y - Rocket.Y) * Math.Sin(radAngle)) + Rocket.X);
+                    point.Y = (float)((point.Y - Rocket.Y) * Math.Cos(radAngle) + (point.X - Rocket.X) * Math.Sin(radAngle) + Rocket.Y);
                 }
                 Rocket.EvaluatePoints();
             }
@@ -286,81 +265,8 @@ namespace GameLib
 
         public void GenerateAsteroid()
         {
-            AsteroidSize size;
-            double asteroidX, asteroidY, asteroidAngle;
-
-            int randNum = random.Next(0, 12);
-            if (randNum < 2)
-            {
-                size = AsteroidSize.SMALL;
-            }
-            else if (randNum < 5)
-            {
-                size = AsteroidSize.MEDIUM;
-            }
-            else
-            {
-                size = AsteroidSize.BIG;
-            }
-
-            if (randNum < 3)
-            {
-                asteroidX = ScreenWidth + (int)size;
-                asteroidY = random.Next((int)size, (int)ScreenHeight - (int)size);
-                if (asteroidY < ScreenHeight / 2)
-                {
-                    asteroidAngle = random.NextDouble() - 1;
-                }
-                else
-                {
-                    asteroidAngle = random.NextDouble();
-                }
-
-            }
-            else if (randNum < 6)
-            {
-                asteroidX = -(int)size;
-                asteroidY = random.Next((int)size, (int)ScreenHeight - (int)size);
-                if (asteroidY < ScreenHeight / 2)
-                {
-                    asteroidAngle = random.NextDouble() * 0.5 + 3;
-                }
-                else
-                {
-                    asteroidAngle = random.NextDouble() * 0.5 + 2.5;
-                }
-            }
-            else if (randNum < 9)
-            {
-                asteroidY = ScreenHeight + (int)size;
-                asteroidX = random.Next((int)size, (int)ScreenWidth - (int)size);
-                if (asteroidX < ScreenWidth / 2)
-                {
-                    asteroidAngle = random.NextDouble() + 1.5;
-                }
-                else
-                {
-                    asteroidAngle = random.NextDouble() + 0.5;
-                }
-            }
-            else
-            {
-                asteroidY = -(int)size;
-                asteroidX = random.Next((int)size, (int)ScreenWidth - (int)size);
-                if (asteroidX < ScreenHeight / 2)
-                {
-                    asteroidAngle = random.NextDouble() + 3.7;
-                }
-                else
-                {
-                    asteroidAngle = random.NextDouble() + 5;
-                }
-            }
-            Asteroids.Add(new Asteroid(size, asteroidAngle, asteroidX, asteroidY));
-
+            Asteroids.Add(new Asteroid(ScreenWidth, ScreenHeight));
         }
-
-
 
 
         public void RenderGame(Graphics canvas)
@@ -370,7 +276,7 @@ namespace GameLib
 
             canvas.DrawPolygon(Pens.White, Rocket.points);
 
-            if (Rocket.HasShiled())
+            if (Rocket.HasShiled)
             {
                 canvas.DrawEllipse(Pens.Aqua, (float)(Rocket.X - Rocket.Size), (float)(Rocket.Y - Rocket.Size), (float)Rocket.Size * 2, (float)Rocket.Size * 2);
             }
@@ -390,34 +296,34 @@ namespace GameLib
             }
             if (Explosions.Count > 0)
             {
-                Explosion e;
+                Explosion explosion;
                 for (int i = 0; i < Explosions.Count; i++)
                 {
-                    e = Explosions[i];
+                    explosion = Explosions[i];
                     Image image;
-                    switch (e.Counter++)
+                    switch (explosion.Counter++)
                     {
                         case 0:
                             using (MemoryStream ms = new MemoryStream(Resources.explosion1))
                             {
                                 image = Image.FromStream(ms);
                             }
-                            canvas.DrawImage(image, (int)e.X, (int)e.Y);
+                            canvas.DrawImage(image, (int)explosion.X, (int)explosion.Y);
                             break;
                         case 1:
                             using (MemoryStream ms = new MemoryStream(Resources.explosion2))
                             {
                                 image = Image.FromStream(ms);
                             }
-                            canvas.DrawImage(image, (int)e.X, (int)e.Y);
+                            canvas.DrawImage(image, (int)explosion.X, (int)explosion.Y);
                             break;
                         case 2:
                             using (MemoryStream ms = new MemoryStream(Resources.explosion3))
                             {
                                 image = Image.FromStream(ms);
                             }
-                            canvas.DrawImage(image, (int)e.X, (int)e.Y);
-                            Explosions.Remove(e);
+                            canvas.DrawImage(image, (int)explosion.X, (int)explosion.Y);
+                            Explosions.Remove(explosion);
                             break;
                     }
                 }
@@ -425,15 +331,15 @@ namespace GameLib
 
             if (Asteroids.Count > 0)
             {
-                Asteroid a;
+                Asteroid asteroid;
                 for (int i = 0; i < Asteroids.Count; i++)
                 {
-                    a = Asteroids[i];
-                    canvas.DrawEllipse(Pens.White, (float)(a.X - a.Size), (float)(a.Y - a.Size), (float)(2 * a.Size), (float)(2 * a.Size));
+                    asteroid = Asteroids[i];
+                    canvas.DrawEllipse(Pens.White, (float)(asteroid.X - asteroid.Size), (float)(asteroid.Y - asteroid.Size), (float)(2 * asteroid.Size), (float)(2 * asteroid.Size));
 
-                    Asteroids[i] = MoveAsteroid(a);
-                    if (a.X - a.Size > ScreenWidth || a.X + a.Size < 0 || a.Y + a.Size < 0 || a.Y - a.Size > ScreenHeight)
-                        Asteroids.Remove(a);
+                    Asteroids[i] = MoveAsteroid(asteroid);
+                    if (asteroid.X - asteroid.Size > ScreenWidth || asteroid.X + asteroid.Size < 0 || asteroid.Y + asteroid.Size < 0 || asteroid.Y - asteroid.Size > ScreenHeight)
+                        Asteroids.Remove(asteroid);
                 }
             }
             if(Bonus.IsBonusActive())
@@ -481,11 +387,11 @@ namespace GameLib
             return shot;
         }
 
-        private Asteroid MoveAsteroid(Asteroid a)
+        private Asteroid MoveAsteroid(Asteroid asteroid)
         {
-            a.X -= Math.Cos(a.Angle) * a.Speed;
-            a.Y -= Math.Sin(a.Angle) * a.Speed;
-            return a;
+            asteroid.X -= Math.Cos(asteroid.Angle) * asteroid.Speed;
+            asteroid.Y -= Math.Sin(asteroid.Angle) * asteroid.Speed;
+            return asteroid;
         }
 
         private double ToRadians(double angle)

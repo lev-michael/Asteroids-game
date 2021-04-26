@@ -1,29 +1,23 @@
 ﻿using GameLib;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GameGUI
 {
     public partial class HighScoreForm : Form
     {
-        private List<String> HighScoreResults;
+        private IList<string> HighScoreResults;
         public HighScoreForm()
         {
             InitializeComponent();
-            HighScoreResults = new List<String>();
-            loadData();
-            displayData();
+            HighScoreResults = new List<string>();
+            LoadData();
+            DisplayData();
         }
 
-        private void displayData()
+        private void DisplayData()
         {
             HighScoreList.Text = "";
             if (HighScoreResults.Count > 0)
@@ -40,11 +34,11 @@ namespace GameGUI
 
         }
 
-        private void loadData()
+        private void LoadData()
         {
             using (var reader = new StreamReader(Constants.HIGH_SCORE_FILE))
             {
-                String line;
+                string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     HighScoreResults.Add(line);
