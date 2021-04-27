@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Input;
 using GameLib;
@@ -7,22 +9,29 @@ using GameLib;
 
 namespace GameGUI
 {
+    internal enum Backgrounds { BG1, BG2, BG3, BG4, BG5 }
     public partial class GameForm : Form
     {
+        
         public static GameForm CurrentForm;
         private bool Paused { get; set; }
         private Game Game;
+        private Random Random;
        
 
         public GameForm()
         {
+            Random = new Random();
             CurrentForm = this;
             InitializeComponent();
             StartGame();
         }
 
+
+
         private void StartGame()
         {
+            SetRandomBackground();
             Game = new Game(gameScreen.Width, gameScreen.Height);
             Game.StartGame();
             Game.EndGameEvent += OnEndGameEvent;
@@ -104,6 +113,30 @@ namespace GameGUI
             if(e.KeyCode == Keys.P)
             {
                 Pause();
+            }
+        }
+
+        private void SetRandomBackground()
+        {
+            var backgrounds = Enum.GetValues(typeof(Backgrounds));
+            Backgrounds background = (Backgrounds)backgrounds.GetValue(Random.Next(backgrounds.Length));
+            switch (background)
+            {
+                case Backgrounds.BG1:
+                    gameScreen.Image = Properties.Resources.background_1;
+                    return;
+                case Backgrounds.BG2:
+                    gameScreen.Image = Properties.Resources.background_2;
+                    return;
+                case Backgrounds.BG3:
+                    gameScreen.Image = Properties.Resources.background_3;
+                    return;
+                case Backgrounds.BG4:
+                    gameScreen.Image = Properties.Resources.background_4;
+                    return;
+                case Backgrounds.BG5:
+                    gameScreen.Image = Properties.Resources.background_5;
+                    return;
             }
         }
     }

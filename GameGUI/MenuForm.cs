@@ -14,13 +14,7 @@ namespace GameGUI
             InitializeComponent();
             Keyboard.IsKeyDown(Key.P);  // Kvůli sjednocení velikostí, při prvním použití Keyboard se restartuje DPI auto scaling
         }
-
-        private void Menu_Form_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
+       
         private void ExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -45,6 +39,13 @@ namespace GameGUI
         private void AboutButton_Click(object sender, EventArgs e)
         {
             AboutForm form = new AboutForm();
+            form.Show();
+            this.Hide();
+        }
+
+        private void ControlsButton_Click(object sender, EventArgs e)
+        {
+            ControlsForm form = new ControlsForm();
             form.Show();
             this.Hide();
         }

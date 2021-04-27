@@ -99,7 +99,6 @@
             // 
             // GameOverForm
             // 
-            this.MaximizeBox = false;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1258, 664);
             this.Controls.Add(this.TooltipLabel2);
@@ -107,9 +106,10 @@
             this.Controls.Add(this.GameOverLabel);
             this.Controls.Add(this.ScoreLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "GameOverForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GameOverForm";
+            this.Text = "Game Over";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

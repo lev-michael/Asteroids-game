@@ -32,6 +32,7 @@
             this.NewGameButton = new System.Windows.Forms.Button();
             this.HighScoreButton = new System.Windows.Forms.Button();
             this.AboutButton = new System.Windows.Forms.Button();
+            this.ControlsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ExitButton
@@ -39,7 +40,7 @@
             this.ExitButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ExitButton.Font = new System.Drawing.Font("Silkscreen", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExitButton.Location = new System.Drawing.Point(453, 534);
+            this.ExitButton.Location = new System.Drawing.Point(453, 542);
             this.ExitButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(380, 88);
@@ -54,7 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Font = new System.Drawing.Font("Silkscreen", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(348, 42);
+            this.label1.Location = new System.Drawing.Point(338, 9);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(20);
             this.label1.Size = new System.Drawing.Size(637, 124);
@@ -67,7 +68,7 @@
             this.NewGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NewGameButton.Font = new System.Drawing.Font("Silkscreen", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewGameButton.Location = new System.Drawing.Point(453, 166);
+            this.NewGameButton.Location = new System.Drawing.Point(453, 128);
             this.NewGameButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(380, 88);
@@ -81,7 +82,7 @@
             this.HighScoreButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.HighScoreButton.Font = new System.Drawing.Font("Silkscreen", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HighScoreButton.Location = new System.Drawing.Point(453, 287);
+            this.HighScoreButton.Location = new System.Drawing.Point(453, 232);
             this.HighScoreButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.HighScoreButton.Name = "HighScoreButton";
             this.HighScoreButton.Size = new System.Drawing.Size(380, 88);
@@ -95,7 +96,7 @@
             this.AboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutButton.Font = new System.Drawing.Font("Silkscreen", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutButton.Location = new System.Drawing.Point(453, 412);
+            this.AboutButton.Location = new System.Drawing.Point(453, 441);
             this.AboutButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AboutButton.Name = "AboutButton";
             this.AboutButton.Size = new System.Drawing.Size(380, 88);
@@ -104,13 +105,27 @@
             this.AboutButton.UseVisualStyleBackColor = true;
             this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
             // 
+            // ControlsButton
+            // 
+            this.ControlsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ControlsButton.Font = new System.Drawing.Font("Silkscreen", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ControlsButton.Location = new System.Drawing.Point(453, 336);
+            this.ControlsButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ControlsButton.Name = "ControlsButton";
+            this.ControlsButton.Size = new System.Drawing.Size(380, 88);
+            this.ControlsButton.TabIndex = 8;
+            this.ControlsButton.Text = "Controls";
+            this.ControlsButton.UseVisualStyleBackColor = true;
+            this.ControlsButton.Click += new System.EventHandler(this.ControlsButton_Click);
+            // 
             // MenuForm
             // 
-            this.MaximizeBox = false;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1258, 664);
+            this.Controls.Add(this.ControlsButton);
             this.Controls.Add(this.AboutButton);
             this.Controls.Add(this.HighScoreButton);
             this.Controls.Add(this.NewGameButton);
@@ -118,9 +133,10 @@
             this.Controls.Add(this.ExitButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
             this.Name = "MenuForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Asteroids";
-            this.Load += new System.EventHandler(this.Menu_Form_Load);
             this.ResumeLayout(false);
 
         }
@@ -131,6 +147,7 @@
         private System.Windows.Forms.Button NewGameButton;
         private System.Windows.Forms.Button HighScoreButton;
         private System.Windows.Forms.Button AboutButton;
+        private System.Windows.Forms.Button ControlsButton;
     }
 }
 

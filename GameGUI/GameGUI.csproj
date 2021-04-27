@@ -60,6 +60,12 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlsForm.Designer.cs">
+      <DependentUpon>ControlsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsForm.resx">
+      <DependentUpon>ControlsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
@@ -130,6 +139,21 @@
       <Project>{09f7849c-1bc3-411d-aa48-d3b02414476a}</Project>
       <Name>GameLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background\background_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background\background_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background\background_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background\background_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background\background_5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

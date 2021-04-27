@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.gameScreen = new System.Windows.Forms.PictureBox();
             this.scoreLabel = new System.Windows.Forms.Label();
@@ -47,7 +46,6 @@
             // gameScreen
             // 
             this.gameScreen.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.gameScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gameScreen.BackgroundImage")));
             this.gameScreen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gameScreen.Location = new System.Drawing.Point(0, 0);
             this.gameScreen.Margin = new System.Windows.Forms.Padding(4);
@@ -118,6 +116,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "GameForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Asteroids";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.gameScreen)).EndInit();

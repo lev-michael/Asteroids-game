@@ -84,7 +84,6 @@
             // 
             // HighScoreForm
             // 
-            this.MaximizeBox = false;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -94,8 +93,10 @@
             this.Controls.Add(this.HighScoreList);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "HighScoreForm";
-            this.Text = "HighScoreForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "High Score";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
